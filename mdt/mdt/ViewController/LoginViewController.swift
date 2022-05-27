@@ -27,6 +27,17 @@ final class LoginViewController: UIViewController {
 		// Do any additional setup after loading the view.
 		
 		createLoginViews()
+		configureViewModel()
+	}
+	
+	private func configureViewModel() {
+		viewModel.onNeedToShowHome = { [weak self] in
+			DispatchQueue.main.async { [weak self] in
+				let homeViewController = HomeViewController()
+				homeViewController.modalPresentationStyle = .fullScreen
+				self?.present(homeViewController, animated: true, completion: nil)
+			}
+		}
 	}
 	
 	private func createLoginViews() {
@@ -60,4 +71,7 @@ final class LoginViewController: UIViewController {
 		}
 	}
 	
+	deinit {
+		print("LoginViewController deallocated")
+	}
 }

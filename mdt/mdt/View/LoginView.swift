@@ -54,6 +54,7 @@ final class LoginView {
 		loginButton.isUserInteractionEnabled = false
 		loginButton.setTitle("LOGIN", for: .normal)
 		loginButton.backgroundColor = .black
+		loginButton.layer.cornerRadius = 24
 		loginButton.frame = CGRect(x: 24, y: Device.screenHeight * 0.8, width: Device.screenWidth - 48, height: 48)
 		loginButton.alpha = 0.5
 		loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
