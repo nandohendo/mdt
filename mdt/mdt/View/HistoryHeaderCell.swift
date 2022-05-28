@@ -20,7 +20,6 @@ final class HistoryHeaderCell: UICollectionReusableView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)		
-		// Customize here
 		addViews()
 	}
 	
@@ -30,11 +29,10 @@ final class HistoryHeaderCell: UICollectionReusableView {
 	}
 	
 	private func addViews() {
-		backgroundColor = .purple
-		
 		transactionDateLabel.frame = CGRect(x: 16, y: 16, width: self.bounds.width - 32, height: 28)
 		transactionDateLabel.textAlignment = .left
-		transactionDateLabel.font = .systemFont(ofSize: 16)
+		transactionDateLabel.textColor = .darkGray
+		transactionDateLabel.font = .systemFont(ofSize: 20)
 		
 		addSubview(transactionDateLabel)
 	}

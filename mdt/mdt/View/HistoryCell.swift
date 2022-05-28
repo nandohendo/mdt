@@ -10,6 +10,20 @@ import UIKit
 
 final class HistoryCell: UICollectionViewCell {
 	
+	var transactionDetail: TransferDetail? {
+		didSet {
+			recipientNameLabel.text = transactionDetail?.receipient.accountHolder
+			recipientAccountNumberLabel.text = transactionDetail?.receipient.accountNo
+			balanceChangeLabel.text = String(transactionDetail?.amount ?? 0)
+			
+			if transactionDetail?.transactionType == "transfer" {
+				balanceChangeLabel.text = "-" + (balanceChangeLabel.text ?? "")
+			} else {
+				balanceChangeLabel.textColor = .green
+			}
+		}
+	}
+	
 	private let recipientNameLabel = UILabel()
 	private let recipientAccountNumberLabel = UILabel()
 	private let balanceChangeLabel = UILabel()
@@ -33,22 +47,21 @@ final class HistoryCell: UICollectionViewCell {
 	private func createRecipientLabel() {
 		recipientNameLabel.frame = CGRect(x: 0, y: 0, width: Device.screenWidth * 0.55, height: 28)
 		recipientNameLabel.textAlignment = .left
-		recipientNameLabel.font = .systemFont(ofSize: 16)
-		recipientNameLabel.text = "Jackie"
+		recipientNameLabel.font = .boldSystemFont(ofSize: 16)
 		
-		recipientAccountNumberLabel.frame = CGRect(x: 0, y: 36, width: Device.screenWidth * 0.55, height: 28)
+		recipientAccountNumberLabel.frame = CGRect(x: 0, y: 30, width: Device.screenWidth * 0.55, height: 28)
 		recipientAccountNumberLabel.textAlignment = .left
-		recipientAccountNumberLabel.font = .systemFont(ofSize: 16)
-		recipientAccountNumberLabel.text = "2324-000-124"
+		recipientAccountNumberLabel.font = .systemFont(ofSize: 16, weight: .light)
 		
 		addSubview(recipientNameLabel)
 		addSubview(recipientAccountNumberLabel)
 	}
 	
 	private func createBalanceChangeLabel() {
-		balanceChangeLabel.frame = CGRect(x: Device.screenWidth * 0.6, y: 18, width: ((Device.screenWidth * 0.35) - 16), height: 28)
+		balanceChangeLabel.frame = CGRect(x: Device.screenWidth * 0.6, y: 12, width: ((Device.screenWidth * 0.35) - 16), height: 28)
 		balanceChangeLabel.clipsToBounds = true
 		balanceChangeLabel.textAlignment = .right
+		balanceChangeLabel.textColor = .gray
 		balanceChangeLabel.font = .systemFont(ofSize: 16)
 		balanceChangeLabel.text = "1,234.0"
 		

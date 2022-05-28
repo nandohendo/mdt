@@ -16,6 +16,7 @@ struct TransferDetail: Codable {
 	let amount: Double
 	let transactionDate: String
 	let receipient: TransferRecipient
+	let transactionType: String
 }
 
 struct TransferRecipient: Codable {

@@ -17,6 +17,7 @@ final class HomeViewModel {
 	
 	var onNeedToReloadCollectionView: (() -> Void)?
 	var onNeedToReloadBasicInfo: (() -> Void)?
+	var onNeedToLogout: (() -> Void)?
 	
 	init() {
 		getBalance()
@@ -59,5 +60,9 @@ final class HomeViewModel {
 			self.history = dict
 			self.onNeedToReloadCollectionView?()
 		}
+	}
+	
+	func handleLogoutTapped() {
+		onNeedToLogout?()
 	}
 }

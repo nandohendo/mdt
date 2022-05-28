@@ -28,12 +28,12 @@ final class HomeView: NSObject {
 
 	private lazy var collectionView: UICollectionView = {
 		flowLayout.scrollDirection = .vertical
-		flowLayout.estimatedItemSize = CGSize(width: Device.screenWidth - 32, height: 64)
+		flowLayout.estimatedItemSize = CGSize(width: Device.screenWidth - 32, height: 54)
 		flowLayout.minimumLineSpacing = 16
 		
 		let collectionView = UICollectionView(frame: CGRect(x: 0, y: stackView.bounds.maxY + 100, width: Device.screenWidth, height: Device.screenHeight * 0.5), collectionViewLayout: flowLayout)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		collectionView.backgroundColor = .gray
+		collectionView.backgroundColor = .white
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		collectionView.register(HistoryCell.self, forCellWithReuseIdentifier: "historyCell")
@@ -76,7 +76,7 @@ final class HomeView: NSObject {
 	}
 	
 	@objc func logoutTapped() {
-		
+		homeViewModel.handleLogoutTapped()
 	}
 	
 	func refreshBasicInfo() {
@@ -132,7 +132,7 @@ final class HomeView: NSObject {
 		accountNumberText.frame = CGRect(x: 0, y: 0, width: (Device.screenWidth * 0.75) - 40, height: 24)
 		accountNumberText.text = "3321-323-732"
 		accountNumberText.textAlignment = .left
-		accountNumberText.font = .boldSystemFont(ofSize: 16)
+		accountNumberText.font = .systemFont(ofSize: 16)
 		
 		accountNumberStackView.axis = .horizontal
 		accountNumberStackView.distribution = .equalSpacing
@@ -151,7 +151,7 @@ final class HomeView: NSObject {
 		usernameText.frame = CGRect(x: 0, y: 0, width: (Device.screenWidth * 0.75) - 40, height: 24)
 		usernameText.text = "Donald Trump"
 		usernameText.textAlignment = .left
-		usernameText.font = .boldSystemFont(ofSize: 16)
+		usernameText.font = .systemFont(ofSize: 16)
 		
 		usernameStackView.axis = .horizontal
 		usernameStackView.distribution = .equalSpacing
@@ -187,6 +187,9 @@ extension HomeView: UICollectionViewDataSource {
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "historyCell", for: indexPath) as? HistoryCell ?? UICollectionViewCell()
+		
+		let headerCell = cell as? HistoryCell
+		headerCell?.transactionDetail = homeViewModel.sortedDetail?[indexPath.section][indexPath.item]
 		return cell
 	}
 	
@@ -194,12 +197,15 @@ extension HomeView: UICollectionViewDataSource {
 		return CGSize(width: collectionView.frame.width, height: 60)
 	}
 	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+		return UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+	}
+	
 }
 
 extension HomeView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print(indexPath.row)
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

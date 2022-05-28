@@ -28,7 +28,13 @@ final class HomeViewController: UIViewController {
 		
 		self.view.backgroundColor = .init(white: 0.96, alpha: 1)
 		createHomeViews()
-		//configureViewModel()
+		configureViewModel()
+	}
+	
+	private func configureViewModel() {
+		viewModel.onNeedToLogout = { [weak self] in
+			self?.dismiss(animated: true, completion: nil)
+		}
 	}
 	
 	private func createHomeViews() {
@@ -53,5 +59,9 @@ final class HomeViewController: UIViewController {
 		if let homeView = homeView {
 			view.addSubview(homeView.getHistoryCollectionView())
 		}
+	}
+	
+	deinit {
+		print("HomeViewController deallocated")
 	}
 }
