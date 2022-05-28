@@ -26,7 +26,7 @@ final class HomeViewModelTests: QuickSpec {
 			viewModel = nil
 		}
 		
-		describe("init HomeViewModel, calling get balance API") {
+		describe("get balance API") {
 			context("API request is success") {
 				it("should return balance and execute onNeedToReloadBasicInfo") {
 					var isReloadBasicInfoCalled = false
@@ -54,6 +54,38 @@ final class HomeViewModelTests: QuickSpec {
 					viewModel.getBalance()
 					expect(viewModel.basicInfo).to(beNil())
 					expect(isReloadBasicInfoCalled).to(beFalse())
+				}
+			}
+		}
+		
+		describe("get transaction history API") {
+			context("API request is success") {
+				it("should return history and execute onNeedToReloadCollectionView") {
+					var isReloadCollectionView = false
+					mockRESTService.isSuccess = true
+
+					viewModel.onNeedToReloadCollectionView = {
+						isReloadCollectionView = true
+					}
+					
+					viewModel.getTransferHistory()
+					expect(viewModel.sortedDate?[0]).to(equal("2022-03-12"))
+					expect(isReloadCollectionView).to(beTrue())
+				}
+			}
+			
+			context("API request is failed") {
+				it("should not return history and not execute onNeedToReloadCollectionView") {
+					var isReloadCollectionView = false
+					mockRESTService.isSuccess = false
+					
+					viewModel.onNeedToReloadBasicInfo = {
+						isReloadCollectionView = true
+					}
+					
+					viewModel.getTransferHistory()
+					expect(viewModel.sortedDate).to(beNil())
+					expect(isReloadCollectionView).to(beFalse())
 				}
 			}
 		}

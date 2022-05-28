@@ -25,6 +25,13 @@ final class MockRESTService: RESTServiceable {
 	}
 	
 	func makeGetHistoryRequest(completionHandler: @escaping ((Bool, TransferResponse?) -> Void)) {
-		
+		if isSuccess {
+			let data1 = TransferDetail(amount: 20, transactionDate: "2022-03-11T15:13:58.927Z", receipient: TransferRecipient(accountNo: "2020", accountHolder: "ABCD"), transactionType: "transfer")
+			let data2 = TransferDetail(amount: 20, transactionDate: "2022-03-12T15:13:58.927Z", receipient: TransferRecipient(accountNo: "2020", accountHolder: "ABCD"), transactionType: "transfer")
+			let transferResponse = TransferResponse(status: "success", data: [data1, data2])
+			completionHandler(true, transferResponse)
+		} else {
+			completionHandler(false, nil)
+		}
 	}
 }
