@@ -34,6 +34,7 @@ final class HomeViewController: UIViewController {
 	private func createHomeViews() {
 		createLogoutButton()
 		createAccountSummaryView()
+		createHistoryCollectionView()
 	}
 	
 	private func createLogoutButton() {
@@ -45,6 +46,12 @@ final class HomeViewController: UIViewController {
 	private func createAccountSummaryView() {
 		if let homeView = homeView {
 			view.addSubview(homeView.getAccountSummaryView())
+		}
+	}
+	
+	private func createHistoryCollectionView() {
+		if let homeView = homeView {
+			view.addSubview(homeView.getHistoryCollectionView())
 		}
 	}
 }

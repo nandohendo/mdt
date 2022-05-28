@@ -36,7 +36,7 @@ final class RESTService {
 		task.resume()
 	}
 	
-	func makeGetBalanceRequest(completionHandler: @escaping ((Bool) -> Void)) {
+	func makeGetBalanceRequest(completionHandler: @escaping ((Bool, BalanceResponse?) -> Void)) {
 		var request = URLRequest(url: URL(string: "\(baseURL)/balance")!)
 		request.httpMethod = "GET"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -50,9 +50,57 @@ final class RESTService {
 				
 				// should check for status from response too
 				let balanceResponse = try JSONDecoder().decode(BalanceResponse.self, from: data)
-				completionHandler(true)
+				completionHandler(true, balanceResponse)
 			} catch {
-				completionHandler(false)
+				completionHandler(false, nil)
+				print("error")
+			}
+		})
+
+		task.resume()
+	}
+	
+	func makeGetPayeeRequest(completionHandler: @escaping ((Bool, PayeeResponse?) -> Void)) {
+		var request = URLRequest(url: URL(string: "\(baseURL)/payees")!)
+		request.httpMethod = "GET"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue((KeychainHelper.value(for: .token) ?? ""), forHTTPHeaderField: "Authorization")
+
+		let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+			guard let data = data else {
+				return
+			}
+			do {
+				
+				// should check for status from response too
+				let payeeResponse = try JSONDecoder().decode(PayeeResponse.self, from: data)
+				completionHandler(true, payeeResponse)
+			} catch {
+				completionHandler(false, nil)
+				print("error")
+			}
+		})
+
+		task.resume()
+	}
+	
+	func makeGetHistoryRequest(completionHandler: @escaping ((Bool, TransferResponse?) -> Void)) {
+		var request = URLRequest(url: URL(string: "\(baseURL)/transactions")!)
+		request.httpMethod = "GET"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue((KeychainHelper.value(for: .token) ?? ""), forHTTPHeaderField: "Authorization")
+
+		let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+			guard let data = data else {
+				return
+			}
+			do {
+				
+				// should check for status from response too
+				let historyResponse = try JSONDecoder().decode(TransferResponse.self, from: data)
+				completionHandler(true, historyResponse)
+			} catch {
+				completionHandler(false, nil)
 				print("error")
 			}
 		})

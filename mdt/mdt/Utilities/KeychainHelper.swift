@@ -14,9 +14,7 @@ final class KeychainHelper {
 		case token
 		case username
 	}
-	
-	typealias Value = String
-	
+		
 	private static let keychain: KeychainSwift = KeychainSwift()
 	
 }

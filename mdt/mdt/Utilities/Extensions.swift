@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIView {
    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
@@ -13,5 +14,13 @@ extension UIView {
 		let mask = CAShapeLayer()
 		mask.path = path.cgPath
 		layer.mask = mask
+	}
+}
+
+extension Date {
+   func getFormattedDate(format: String) -> String {
+		let dateformat = DateFormatter()
+		dateformat.dateFormat = format
+		return dateformat.string(from: self)
 	}
 }
