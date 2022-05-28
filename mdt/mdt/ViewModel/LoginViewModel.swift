@@ -10,7 +10,8 @@ import Foundation
 final class LoginViewModel {
 	
 	var onNeedToShowHome: (() -> Void)?
-	private let service: RESTService = RESTService()
+	var onNeedToShowErrorAlert: (() -> Void)?
+	var service: RESTServiceable = RESTService()
 	
 	func handleLoginTapped(username: String, password: String) {
 		let loginRequest = LoginRequest(username: "test", password: "asdasd")
@@ -18,7 +19,7 @@ final class LoginViewModel {
 			if isLoginSuccess {
 				self?.onNeedToShowHome?()
 			} else {
-				// show error
+				self?.onNeedToShowErrorAlert?()
 			}
 		}
 	}

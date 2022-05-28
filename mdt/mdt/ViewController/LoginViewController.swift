@@ -38,6 +38,12 @@ final class LoginViewController: UIViewController {
 				self?.present(homeViewController, animated: true, completion: nil)
 			}
 		}
+		
+		viewModel.onNeedToShowErrorAlert = { [weak self] in
+			DispatchQueue.main.async { [weak self] in
+				self?.showAlert(message: "Failed to login, please retry")
+			}
+		}
 	}
 	
 	private func createLoginViews() {
@@ -69,9 +75,5 @@ final class LoginViewController: UIViewController {
 		if let loginView = loginView {
 			view.addSubview(loginView.getLoginButton())
 		}
-	}
-	
-	deinit {
-		print("LoginViewController deallocated")
 	}
 }

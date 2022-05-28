@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class RESTService {
+protocol RESTServiceable {
+	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void))
+}
+
+final class RESTService: RESTServiceable {
 
 	private let session = URLSession.shared
 	private let baseURL: String = "https://green-thumb-64168.uc.r.appspot.com"
@@ -24,12 +28,16 @@ final class RESTService {
 			}
 			do {
 				let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
+				
+				if loginResponse.status != "success" {
+					completionHandler(false)
+					return
+				}
+				
 				KeychainHelper.cache(value: loginResponse.token, for: .token)
 				KeychainHelper.cache(value: loginResponse.username, for: .username)
 				completionHandler(true)
 			} catch {
-				completionHandler(false)
-				print("error")
 			}
 		})
 
