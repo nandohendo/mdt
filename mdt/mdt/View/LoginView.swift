@@ -23,13 +23,14 @@ final class LoginView {
 	func getHeader() -> UILabel {
 		let loginHeader = UILabel()
 		loginHeader.textColor = .black
-		loginHeader.font = UIFont.boldSystemFont(ofSize: 20)
+		loginHeader.font = UIFont.boldSystemFont(ofSize: 24)
 		loginHeader.frame = CGRect(x: 24, y: Device.screenHeight * 0.15, width: Device.screenWidth - 48, height: 24)
-		loginHeader.text = "Login"
+		loginHeader.text = "Welcome"
 		return loginHeader
 	}
 	
 	func getUsernameTextField() -> UITextField {
+		usernameTextField.setLeftPaddingPoints(16)
 		usernameTextField.placeholder = "Username"
 		usernameTextField.layer.cornerRadius = 8
 		usernameTextField.layer.borderColor = UIColor.black.cgColor
@@ -41,6 +42,7 @@ final class LoginView {
 	}
 	
 	func getPasswordTextField() -> UITextField {
+		passwordTextField.setLeftPaddingPoints(16)
 		passwordTextField.placeholder = "Password"
 		passwordTextField.layer.cornerRadius = 8
 		passwordTextField.layer.borderColor = UIColor.black.cgColor
