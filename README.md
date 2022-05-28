@@ -2,11 +2,43 @@
 
 I am using MVVM for this project, the UI will be done programatically.
 
+Since I will not be using RxSwift, the code will depend a lot on closures, example:
+
+`HomeView`
+
+```
+@objc func logoutTapped() {
+		homeViewModel.handleLogoutTapped()
+}
+```
+
+`HomeViewModel`
+
+```
+var onNeedToLogout: (() -> Void)?
+
+func handleLogoutTapped() {
+		onNeedToLogout?()
+}
+
+```
+
+`HomeViewController`
+
+```
+private func configureViewModel() {
+		viewModel.onNeedToLogout = { [weak self] in
+			self?.dismiss(animated: true, completion: nil)
+		}
+	}
+```
+
+
 # Library
 
 - KeychainSwift 
 
-For storing user's personal data
+Wrapping Keychain code which will be used for storing user's personal data
 
 - Quick and Nimble
 
