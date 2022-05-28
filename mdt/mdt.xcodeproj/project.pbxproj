@@ -37,6 +37,7 @@
 		669A9BAE28427A8A0042C845 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 669A9BAD28427A8A0042C845 /* Nimble */; };
 		669A9BB028427A9B0042C845 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BAF28427A9B0042C845 /* LoginViewModelTests.swift */; };
 		669A9BB328427B0A0042C845 /* MockRESTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BB228427B0A0042C845 /* MockRESTService.swift */; };
+		669A9BB528429FDD0042C845 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BB428429FDC0042C845 /* HomeViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		669A9BA42841F9950042C845 /* TransferResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferResponse.swift; sourceTree = "<group>"; };
 		669A9BAF28427A9B0042C845 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		669A9BB228427B0A0042C845 /* MockRESTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRESTService.swift; sourceTree = "<group>"; };
+		669A9BB428429FDC0042C845 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				669A9BB128427AFE0042C845 /* Mocks */,
 				669A9B552840CD5B0042C845 /* mdtTests.swift */,
 				669A9BAF28427A9B0042C845 /* LoginViewModelTests.swift */,
+				669A9BB428429FDC0042C845 /* HomeViewModelTests.swift */,
 			);
 			path = mdtTests;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				669A9BB328427B0A0042C845 /* MockRESTService.swift in Sources */,
 				669A9BB028427A9B0042C845 /* LoginViewModelTests.swift in Sources */,
 				669A9B562840CD5B0042C845 /* mdtTests.swift in Sources */,
+				669A9BB528429FDD0042C845 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

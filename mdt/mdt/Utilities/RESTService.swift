@@ -9,6 +9,8 @@ import Foundation
 
 protocol RESTServiceable {
 	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void))
+	func makeGetBalanceRequest(completionHandler: @escaping ((Bool, BalanceResponse?) -> Void))
+	func makeGetHistoryRequest(completionHandler: @escaping ((Bool, TransferResponse?) -> Void))
 }
 
 final class RESTService: RESTServiceable {

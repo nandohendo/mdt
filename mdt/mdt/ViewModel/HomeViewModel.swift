@@ -9,7 +9,7 @@ import Foundation
 
 final class HomeViewModel {
 	
-	private let service: RESTService = RESTService()
+	private let service: RESTServiceable
 	var basicInfo: (Double, String)?
 	var sortedDate: [String]?
 	var sortedDetail: [[TransferDetail]]?
@@ -18,9 +18,8 @@ final class HomeViewModel {
 	var onNeedToReloadBasicInfo: (() -> Void)?
 	var onNeedToLogout: (() -> Void)?
 	
-	init() {
-		getBalance()
-		getTransferHistory()
+	init(service: RESTServiceable = RESTService()) {
+		self.service = service
 	}
 	
 	func getBalance() {

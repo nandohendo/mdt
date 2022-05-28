@@ -63,6 +63,9 @@ final class HomeView: NSObject {
 				self?.refreshBasicInfo()
 			}
 		}
+		
+		homeViewModel.getBalance()
+		homeViewModel.getTransferHistory()
 	}
 	
 	func getLogoutButton() -> UIButton {
