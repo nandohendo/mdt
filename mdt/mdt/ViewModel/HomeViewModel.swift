@@ -11,7 +11,6 @@ final class HomeViewModel {
 	
 	private let service: RESTService = RESTService()
 	var basicInfo: (Double, String)?
-	var history: [String?: [TransferDetail]]?
 	var sortedDate: [String]?
 	var sortedDetail: [[TransferDetail]]?
 	
@@ -45,6 +44,8 @@ final class HomeViewModel {
 				return
 			}
 			
+			// Separate date by "T" wildcard
+			// Date format: 2022-03-12T15:13:58.927Z
 			let dict = Dictionary(grouping: transferResponse.data) {
 				$0.transactionDate.components(separatedBy: "T").first
 			}
@@ -57,7 +58,6 @@ final class HomeViewModel {
 				return $0.1
 			}
 						
-			self.history = dict
 			self.onNeedToReloadCollectionView?()
 		}
 	}

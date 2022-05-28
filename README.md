@@ -125,3 +125,41 @@ describe("handle login tapped") {
 			}
 }
 ```
+
+- Home/Dashboard
+
+There are several functionalities in Home page. 
+
+The first one is showing user info, I coded the UI with several `UIStackView`.
+
+Then, there is user transaction's history. I coded the UI using `UICollectionView` with multiple sections, by showing the transaction date in header part of the collection view section, and the transactions on the collection view cells.
+
+The main challenge here is the data for the transaction history. The data received is sent in one big JSON, without any separation for each date, so I need to group it up first.
+
+First things first, I try to group transactions based on their transaction date using this code:
+
+```
+// Separate date by "T" wildcard
+// Date format: 2022-03-12T15:13:58.927Z
+let dict = Dictionary(grouping: transferResponse.data) {
+				$0.transactionDate.components(separatedBy: "T").first
+}
+```
+
+Now I have dictionary with grouped transactions based on their transaction date. The key is the transaction date, ex: `2022-03-12`. And the value is array of transaction details. 
+
+The problem here is this particular dictionary is not sorted, while we need to show sorted transactions for user. My next approach is to sort the dictionary by the keys.
+
+```
+let sortedArray = dict.sorted( by: { $0.0 ?? "" > $1.0 ?? "" })
+self.sortedDate = sortedArray.map {
+	return $0.0 ?? ""
+}
+self.sortedDetail = sortedArray.map {
+	return $0.1
+}
+```
+
+Now we have `sortedDate` and `sortedDetail` which contains sorted transaction date and transaction detail respectively.
+
+The date will be used to fill up the collection view header, meanwhile the detail will be used to fill up the collection view cells.
