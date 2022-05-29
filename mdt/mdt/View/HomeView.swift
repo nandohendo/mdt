@@ -21,7 +21,8 @@ final class HomeView: NSObject {
 	private let balanceText: UILabel = UILabel()
 	private let accountNumberText = UILabel()
 	private let usernameText = UILabel()
-	private let stackView: UIStackView = UIStackView()
+	private let transactionHistoryLabel = UILabel()
+	private let userInfoStackView: UIStackView = UIStackView()
 	
 	let flowLayout = UICollectionViewFlowLayout()
 
@@ -30,7 +31,7 @@ final class HomeView: NSObject {
 		flowLayout.estimatedItemSize = CGSize(width: Device.screenWidth - 32, height: 54)
 		flowLayout.minimumLineSpacing = 16
 		
-		let collectionView = UICollectionView(frame: CGRect(x: 0, y: stackView.bounds.maxY + 100, width: Device.screenWidth, height: Device.screenHeight * 0.5), collectionViewLayout: flowLayout)
+		let collectionView = UICollectionView(frame: CGRect(x: 0, y: transactionHistoryLabel.frame.origin.y + 40, width: Device.screenWidth, height: Device.screenHeight * 0.5), collectionViewLayout: flowLayout)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.backgroundColor = .white
 		collectionView.delegate = self
@@ -92,21 +93,21 @@ final class HomeView: NSObject {
 		makeAccountNumberView()
 		makeUsernameView()
 		
-		stackView.backgroundColor = .white
-		stackView.axis = .vertical
-		stackView.distribution = .equalSpacing
-		stackView.alignment = .leading
-		stackView.spacing = 16.0
-		stackView.frame = CGRect(x: 0, y: logoutButton.bounds.maxY + 36, width: Device.screenWidth * 0.75, height: 125)
-		stackView.roundCorners(corners: [.topRight, .bottomRight], radius: 24)
-		stackView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-		stackView.isLayoutMarginsRelativeArrangement = true
+		userInfoStackView.backgroundColor = .white
+		userInfoStackView.axis = .vertical
+		userInfoStackView.distribution = .equalSpacing
+		userInfoStackView.alignment = .leading
+		userInfoStackView.spacing = 16.0
+		userInfoStackView.frame = CGRect(x: 0, y: logoutButton.bounds.maxY + 36, width: Device.screenWidth * 0.75, height: 125)
+		userInfoStackView.roundCorners(corners: [.topRight, .bottomRight], radius: 24)
+		userInfoStackView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+		userInfoStackView.isLayoutMarginsRelativeArrangement = true
 		
-		stackView.addArrangedSubview(balanceStackView)
-		stackView.addArrangedSubview(accountNumberStackView)
-		stackView.addArrangedSubview(usernameStackView)
+		userInfoStackView.addArrangedSubview(balanceStackView)
+		userInfoStackView.addArrangedSubview(accountNumberStackView)
+		userInfoStackView.addArrangedSubview(usernameStackView)
 
-		return stackView
+		return userInfoStackView
 	}
 	
 	private func makeBalanceView() {
@@ -161,6 +162,15 @@ final class HomeView: NSObject {
 		
 		usernameStackView.addArrangedSubview(personIcon)
 		usernameStackView.addArrangedSubview(usernameText)
+	}
+	
+	func getTransactionHistoryLabelView() -> UILabel {
+		transactionHistoryLabel.frame = CGRect(x: 16, y: userInfoStackView.frame.origin.y + 141, width: (Device.screenWidth * 0.75) - 40, height: 24)
+		transactionHistoryLabel.text = "Your transaction history"
+		transactionHistoryLabel.textAlignment = .left
+		transactionHistoryLabel.font = .boldSystemFont(ofSize: 20)
+		
+		return transactionHistoryLabel
 	}
 	
 	func getHistoryCollectionView() -> UICollectionView {

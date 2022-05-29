@@ -44,6 +44,8 @@ Wrapping Keychain code which will be used for storing user's personal data
 
 Unit testing framework to refine the way we write unit tests
 
+All the libraries are integrated using SPM.
+
 # Code
 
 - Utilities
@@ -65,18 +67,30 @@ I also listen to the text field input changes to determine whether Login button 
 
 ```
 @objc func usernameTextFieldDidChange(_ textField: UITextField) {
-		loginButton.isUserInteractionEnabled = !(textField.text?.isEmpty ?? true)
-		loginButton.alpha = (textField.text?.isEmpty ?? true) ? 0.5 : 1
-}
+		let isUsernameEmpty = usernameTextField.text?.isEmpty ?? true
+		let isPasswordEmpty = passwordTextField.text?.isEmpty ?? true
+		let isButtonTappable = !(isUsernameEmpty || isPasswordEmpty)
+		
+		loginButton.isUserInteractionEnabled = isButtonTappable
+		loginButton.alpha = isButtonTappable ? 1 : 0.5
+	}
+	
+	@objc func passwordTextFieldDidChange(_ textField: UITextField) {
+		let isUsernameEmpty = usernameTextField.text?.isEmpty ?? true
+		let isPasswordEmpty = passwordTextField.text?.isEmpty ?? true
+		let isButtonTappable = !(isUsernameEmpty || isPasswordEmpty)
+		
+		loginButton.isUserInteractionEnabled = isButtonTappable
+		loginButton.alpha = isButtonTappable ? 1 : 0.5
+	}
 ```
-
-`LoginViewModel` only contains the function to call login API, so the unit test also tests that functionality. 
+Now I will explain how do I design my unit test for LoginViewModel.
 
 To mock the network call, I create a protocol for `RESTService` class which is called `RESTServiceable`.
 
 ```
 protocol RESTServiceable {
-	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void))
+	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool, String?) -> Void))
 }
 
 ```
@@ -87,10 +101,13 @@ The mock will pass completionHandler based on `isSuccess` boolean:
 final class MockRESTService: RESTServiceable {
 	var isSuccess: Bool = true
 	
-	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void)) {
-		completionHandler(isSuccess)
+	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool, String?) -> Void)) {
+		if isSuccess {
+			completionHandler(true, nil)
+		} else {
+			completionHandler(false, "invalid login credential")
+		}
 	}
-}
 
 ```
 
@@ -114,15 +131,19 @@ describe("handle login tapped") {
 			context("API request is failed") {
 				it("onNeedToShowHome is triggered") {
 					var isShowAlertCalled = false
+					var errorMessageTemp: String? = ""
 					mockRESTService.isSuccess = false
 					
-					viewModel.onNeedToShowErrorAlert = {
+					viewModel.onNeedToShowErrorAlert = { (errorMessage: String?) in
 						isShowAlertCalled = true
+						errorMessageTemp = errorMessage
 					}
 					viewModel.handleLoginTapped(username: "a", password: "b")
 					expect(isShowAlertCalled).to(beTrue())
+					expect(errorMessageTemp).to(equal("invalid login credential"))
 				}
 			}
+		}
 }
 ```
 
@@ -163,6 +184,10 @@ self.sortedDetail = sortedArray.map {
 Now we have `sortedDate` and `sortedDetail` which contains sorted transaction date and transaction detail respectively.
 
 The date will be used to fill up the collection view header, meanwhile the detail will be used to fill up the collection view cells.
+
+- Register
+
+I managed to finish the register flow, the user will be redirected to login page once they successfully registered.
 
 
 # Additional Flow
