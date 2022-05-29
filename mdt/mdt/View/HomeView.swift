@@ -17,7 +17,6 @@ final class HomeView: NSObject {
 	private let balanceIcon: UIImageView = UIImageView(image: UIImage(named: "money"))
 	private let personIcon: UIImageView = UIImageView(image: UIImage(named: "person"))
 	private let infoIcon: UIImageView = UIImageView(image: UIImage(named: "info"))
-
 	
 	private let balanceText: UILabel = UILabel()
 	private let accountNumberText = UILabel()
@@ -83,7 +82,7 @@ final class HomeView: NSObject {
 	}
 	
 	func refreshBasicInfo() {
-		balanceText.text = String(homeViewModel.basicInfo?.0 ?? 0)
+		balanceText.text = homeViewModel.getLocalCurrencyPrefix() + " " + String(homeViewModel.basicInfo?.0 ?? 0)
 		accountNumberText.text = homeViewModel.basicInfo?.1
 		usernameText.text = homeViewModel.getUsername()
 	}
@@ -133,7 +132,6 @@ final class HomeView: NSObject {
 		infoIcon.contentMode = .scaleAspectFit
 		
 		accountNumberText.frame = CGRect(x: 0, y: 0, width: (Device.screenWidth * 0.75) - 40, height: 24)
-		accountNumberText.text = "3321-323-732"
 		accountNumberText.textAlignment = .left
 		accountNumberText.font = .systemFont(ofSize: 16)
 		
@@ -152,7 +150,6 @@ final class HomeView: NSObject {
 		personIcon.contentMode = .scaleAspectFit
 		
 		usernameText.frame = CGRect(x: 0, y: 0, width: (Device.screenWidth * 0.75) - 40, height: 24)
-		usernameText.text = "Donald Trump"
 		usernameText.textAlignment = .left
 		usernameText.font = .systemFont(ofSize: 16)
 		

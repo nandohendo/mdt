@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RESTServiceable {
-	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void))
+	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool, String?) -> Void))
 	func makeGetBalanceRequest(completionHandler: @escaping ((Bool, BalanceResponse?) -> Void))
 	func makeGetHistoryRequest(completionHandler: @escaping ((Bool, TransferResponse?) -> Void))
 	func makeRegisterRequest(registerRequest: RegisterRequest, completionHandler: @escaping ((Bool, String?) -> Void))
@@ -24,7 +24,7 @@ final class RESTService: RESTServiceable {
 	private let session = URLSession.shared
 	private let baseURL: String = "https://green-thumb-64168.uc.r.appspot.com"
 	
-	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void)) {
+	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool, String?) -> Void)) {
 		var request = getURLRequest(endPoint: "login", httpMethod: .post)
 		request.httpBody = try? JSONEncoder().encode(loginRequest)
 
@@ -36,15 +36,20 @@ final class RESTService: RESTServiceable {
 				let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
 				
 				if loginResponse.status != "success" {
-					completionHandler(false)
+					completionHandler(false, loginResponse.error)
 					return
 				}
 				
-				KeychainHelper.cache(value: loginResponse.token, for: .token)
-				KeychainHelper.cache(value: loginResponse.username, for: .username)
-				completionHandler(true)
+				if let token = loginResponse.token,
+				   let username = loginResponse.username {
+					KeychainHelper.cache(value: token, for: .token)
+					KeychainHelper.cache(value: username, for: .username)
+					completionHandler(true, nil)
+				} else {
+					completionHandler(false, nil)
+				}
 			} catch {
-				completionHandler(false)
+				completionHandler(false, nil)
 			}
 		})
 

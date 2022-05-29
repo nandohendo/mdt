@@ -13,17 +13,17 @@ final class LoginViewModel {
 	
 	var onNeedToShowHome: (() -> Void)?
 	var onNeedToShowRegister: (() -> Void)?
-	var onNeedToShowErrorAlert: (() -> Void)?
+	var onNeedToShowErrorAlert: ((String?) -> Void)?
 	var service: RESTServiceable = RESTService()
 	
 	func handleLoginTapped(username: String, password: String) {
 		let loginRequest = LoginRequest(username: username, password: password)
-		service.makeLoginRequest(loginRequest: loginRequest) { [weak self] (isLoginSuccess: Bool) in
+		service.makeLoginRequest(loginRequest: loginRequest) { [weak self] (isLoginSuccess: Bool, errorMessage: String?) in
 			if isLoginSuccess {
 				KeychainHelper.cache(value: username, for: .username)
 				self?.onNeedToShowHome?()
 			} else {
-				self?.onNeedToShowErrorAlert?()
+				self?.onNeedToShowErrorAlert?(errorMessage)
 			}
 		}
 	}

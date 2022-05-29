@@ -51,9 +51,10 @@ final class LoginViewController: UIViewController {
 			}
 		}
 		
-		viewModel.onNeedToShowErrorAlert = { [weak self] in
+		viewModel.onNeedToShowErrorAlert = { [weak self] (errorMessage: String?) in
 			DispatchQueue.main.async { [weak self] in
-				self?.showAlert(message: "Failed to login, please retry")
+				let defaultErrorMessage = "Failed to login, please retry"
+				self?.showAlert(message: errorMessage ?? defaultErrorMessage)
 			}
 		}
 		

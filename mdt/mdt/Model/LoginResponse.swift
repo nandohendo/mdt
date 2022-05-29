@@ -9,7 +9,8 @@ import Foundation
 
 struct LoginResponse: Codable {
 	let status: String
-	let token: String
-	let username: String
-	let accountNo: String
+	var token: String? = nil
+	var username: String? = nil
+	var accountNo: String? = nil
+	var error: String? = nil
 }

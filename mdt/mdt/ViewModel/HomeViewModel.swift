@@ -69,4 +69,8 @@ final class HomeViewModel {
 	func getUsername() -> String {
 		return (KeychainHelper.value(for: .username) ?? "")
 	}
+	
+	func getLocalCurrencyPrefix() -> String {
+		return (Locale.current.currencyCode ?? "SGD")
+	}
 }
