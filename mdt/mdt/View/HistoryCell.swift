@@ -12,13 +12,15 @@ final class HistoryCell: UICollectionViewCell {
 	
 	var transactionDetail: TransferDetail? {
 		didSet {
-			recipientNameLabel.text = transactionDetail?.receipient.accountHolder
-			recipientAccountNumberLabel.text = transactionDetail?.receipient.accountNo
 			balanceChangeLabel.text = String(transactionDetail?.amount ?? 0)
 			
 			if transactionDetail?.transactionType == "transfer" {
+				recipientNameLabel.text = transactionDetail?.receipient?.accountHolder
+				recipientAccountNumberLabel.text = transactionDetail?.receipient?.accountNo
 				balanceChangeLabel.text = "-" + (balanceChangeLabel.text ?? "")
 			} else {
+				recipientNameLabel.text = transactionDetail?.sender?.accountHolder
+				recipientAccountNumberLabel.text = transactionDetail?.sender?.accountNo
 				balanceChangeLabel.textColor = .green
 			}
 		}

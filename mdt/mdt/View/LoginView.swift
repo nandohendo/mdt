@@ -48,8 +48,10 @@ final class LoginView {
 		passwordTextField.layer.cornerRadius = 8
 		passwordTextField.layer.borderColor = UIColor.black.cgColor
 		passwordTextField.layer.borderWidth = 2
-		passwordTextField.frame = CGRect(x: 24, y: Device.screenHeight * 0.4, width: Device.screenWidth - 48, height: 48)
+		passwordTextField.frame = CGRect(x: 24, y: usernameTextField.frame.origin.y + 64, width: Device.screenWidth - 48, height: 48)
 		passwordTextField.isSecureTextEntry = true
+		passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange(_:)),
+						for: .editingChanged)
 		return passwordTextField
 	}
 	
@@ -58,7 +60,7 @@ final class LoginView {
 		loginButton.setTitle("LOGIN", for: .normal)
 		loginButton.backgroundColor = .black
 		loginButton.layer.cornerRadius = 24
-		loginButton.frame = CGRect(x: 24, y: Device.screenHeight * 0.7, width: Device.screenWidth - 48, height: 48)
+		loginButton.frame = CGRect(x: 24, y: Device.screenHeight * 0.75, width: Device.screenWidth - 48, height: 48)
 		loginButton.alpha = 0.5
 		loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
 		return loginButton
@@ -73,7 +75,7 @@ final class LoginView {
 		registerButton.setTitleColor(.black, for: .normal)
 		registerButton.backgroundColor = .white
 		registerButton.layer.cornerRadius = 24
-		registerButton.frame = CGRect(x: 24, y: Device.screenHeight * 0.8, width: Device.screenWidth - 48, height: 48)
+		registerButton.frame = CGRect(x: 24, y: loginButton.frame.origin.y + 64, width: Device.screenWidth - 48, height: 48)
 		registerButton.layer.borderColor = UIColor.black.cgColor
 		registerButton.layer.borderWidth = 2
 		registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
@@ -93,8 +95,20 @@ final class LoginView {
 
 extension LoginView {
 	@objc func usernameTextFieldDidChange(_ textField: UITextField) {
-		loginButton.isUserInteractionEnabled = !(textField.text?.isEmpty ?? true)
-		loginButton.alpha = (textField.text?.isEmpty ?? true) ? 0.5 : 1
+		let isUsernameEmpty = usernameTextField.text?.isEmpty ?? true
+		let isPasswordEmpty = passwordTextField.text?.isEmpty ?? true
+		let isButtonTappable = !(isUsernameEmpty || isPasswordEmpty)
+		
+		loginButton.isUserInteractionEnabled = isButtonTappable
+		loginButton.alpha = isButtonTappable ? 1 : 0.5
 	}
 	
+	@objc func passwordTextFieldDidChange(_ textField: UITextField) {
+		let isUsernameEmpty = usernameTextField.text?.isEmpty ?? true
+		let isPasswordEmpty = passwordTextField.text?.isEmpty ?? true
+		let isButtonTappable = !(isUsernameEmpty || isPasswordEmpty)
+		
+		loginButton.isUserInteractionEnabled = isButtonTappable
+		loginButton.alpha = isButtonTappable ? 1 : 0.5
+	}
 }

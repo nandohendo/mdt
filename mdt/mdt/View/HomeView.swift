@@ -85,7 +85,7 @@ final class HomeView: NSObject {
 	func refreshBasicInfo() {
 		balanceText.text = String(homeViewModel.basicInfo?.0 ?? 0)
 		accountNumberText.text = homeViewModel.basicInfo?.1
-		usernameText.text = "Donald Trump"
+		usernameText.text = homeViewModel.getUsername()
 	}
 	
 	func getAccountSummaryView() -> UIStackView {
@@ -237,20 +237,4 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 		}
 	}
 	
-	
-}
-extension CGFloat {
-	static func random() -> CGFloat {
-		return CGFloat(arc4random()) / CGFloat(UInt32.max)
-	}
-}
-extension UIColor {
-	static func random() -> UIColor {
-		return UIColor(
-		   red:   .random(),
-		   green: .random(),
-		   blue:  .random(),
-		   alpha: 1.0
-		)
-	}
 }

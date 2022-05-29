@@ -15,11 +15,17 @@ struct TransferResponse: Codable {
 struct TransferDetail: Codable {
 	let amount: Double
 	let transactionDate: String
-	let receipient: TransferRecipient
+	var receipient: TransferRecipient? = nil
 	let transactionType: String
+	var sender: Sender? = nil
 }
 
 struct TransferRecipient: Codable {
+	let accountNo: String
+	let accountHolder: String
+}
+
+struct Sender: Codable {
 	let accountNo: String
 	let accountHolder: String
 }

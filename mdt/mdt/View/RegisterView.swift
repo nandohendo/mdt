@@ -91,6 +91,7 @@ final class RegisterView {
 	}
 }
 
+// Can be improved by listening to all of them at once using Rx
 extension RegisterView {
 	@objc func usernameTextFieldDidChange(_ textField: UITextField) {
 		let isUsernameEmpty = usernameTextField.text?.isEmpty ?? true

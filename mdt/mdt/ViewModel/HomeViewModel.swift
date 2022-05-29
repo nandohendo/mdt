@@ -64,4 +64,8 @@ final class HomeViewModel {
 	func handleLogoutTapped() {
 		onNeedToLogout?()
 	}
+	
+	func getUsername() -> String {
+		return (KeychainHelper.value(for: .username) ?? "")
+	}
 }

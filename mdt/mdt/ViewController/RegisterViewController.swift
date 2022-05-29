@@ -92,4 +92,8 @@ final class RegisterViewController: UIViewController {
 			view.addSubview(registerView.getRegisterButton())
 		}
 	}
+	
+	deinit {
+		print("RegisterVieController deallocated")
+	}
 }

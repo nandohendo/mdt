@@ -17,9 +17,10 @@ final class LoginViewModel {
 	var service: RESTServiceable = RESTService()
 	
 	func handleLoginTapped(username: String, password: String) {
-		let loginRequest = LoginRequest(username: "test", password: "asdasd")
+		let loginRequest = LoginRequest(username: username, password: password)
 		service.makeLoginRequest(loginRequest: loginRequest) { [weak self] (isLoginSuccess: Bool) in
 			if isLoginSuccess {
+				KeychainHelper.cache(value: username, for: .username)
 				self?.onNeedToShowHome?()
 			} else {
 				self?.onNeedToShowErrorAlert?()
