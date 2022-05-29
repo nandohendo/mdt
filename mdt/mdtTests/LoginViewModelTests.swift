@@ -40,14 +40,29 @@ final class LoginViewModelTests: QuickSpec {
 			context("API request is failed") {
 				it("onNeedToShowHome is triggered") {
 					var isShowAlertCalled = false
+					var errorMessageTemp: String? = ""
 					mockRESTService.isSuccess = false
 					
-					viewModel.onNeedToShowErrorAlert = {
+					viewModel.onNeedToShowErrorAlert = { (errorMessage: String?) in
 						isShowAlertCalled = true
+						errorMessageTemp = errorMessage
 					}
 					viewModel.handleLoginTapped(username: "a", password: "b")
 					expect(isShowAlertCalled).to(beTrue())
+					expect(errorMessageTemp).to(equal("invalid login credential"))
 				}
+			}
+		}
+		
+		describe("handle register tapped") {
+			it("should call onNeedToShowRegister") {
+				var isShowRegisterCalled = false
+				viewModel.onNeedToShowRegister = {
+					isShowRegisterCalled = true
+				}
+				
+				viewModel.handleRegisterTapped()
+				expect(isShowRegisterCalled).to(beTrue())
 			}
 		}
 	}

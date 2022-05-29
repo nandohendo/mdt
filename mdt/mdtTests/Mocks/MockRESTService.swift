@@ -11,8 +11,12 @@ import Foundation
 final class MockRESTService: RESTServiceable {
 	var isSuccess: Bool = true
 	
-	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void)) {
-		completionHandler(isSuccess)
+	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool, String?) -> Void)) {
+		if isSuccess {
+			completionHandler(true, nil)
+		} else {
+			completionHandler(false, "invalid login credential")
+		}
 	}
 	
 	func makeGetBalanceRequest(completionHandler: @escaping ((Bool, BalanceResponse?) -> Void)) {
@@ -33,5 +37,9 @@ final class MockRESTService: RESTServiceable {
 		} else {
 			completionHandler(false, nil)
 		}
+	}
+	
+	func makeRegisterRequest(registerRequest: RegisterRequest, completionHandler: @escaping ((Bool, String?) -> Void)) {
+		
 	}
 }
