@@ -30,6 +30,18 @@ final class LoginViewController: UIViewController {
 		configureViewModel()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		// Clear text fields after coming back from other flow
+		guard !viewModel.isFirstTimeLoad else {
+			viewModel.isFirstTimeLoad = false
+			return
+		}
+		
+		loginView?.clearTextFields()
+	}
+	
 	private func configureViewModel() {
 		viewModel.onNeedToShowHome = { [weak self] in
 			DispatchQueue.main.async { [weak self] in
@@ -44,6 +56,14 @@ final class LoginViewController: UIViewController {
 				self?.showAlert(message: "Failed to login, please retry")
 			}
 		}
+		
+		viewModel.onNeedToShowRegister = { [weak self] in
+			DispatchQueue.main.async { [weak self] in
+				let registerViewController = RegisterViewController()
+				registerViewController.modalPresentationStyle = .fullScreen
+				self?.present(registerViewController, animated: true, completion: nil)
+			}
+		}
 	}
 	
 	private func createLoginViews() {
@@ -51,6 +71,7 @@ final class LoginViewController: UIViewController {
 		createUsernameTextField()
 		createPasswordTextField()
 		createLoginButton()
+		createRegisterButton()
 	}
 
 	private func createHeader() {
@@ -74,6 +95,12 @@ final class LoginViewController: UIViewController {
 	private func createLoginButton() {
 		if let loginView = loginView {
 			view.addSubview(loginView.getLoginButton())
+		}
+	}
+	
+	private func createRegisterButton() {
+		if let loginView = loginView {
+			view.addSubview(loginView.getRegisterButton())
 		}
 	}
 }

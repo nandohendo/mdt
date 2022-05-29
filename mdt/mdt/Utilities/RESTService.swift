@@ -11,6 +11,7 @@ protocol RESTServiceable {
 	func makeLoginRequest(loginRequest: LoginRequest, completionHandler: @escaping ((Bool) -> Void))
 	func makeGetBalanceRequest(completionHandler: @escaping ((Bool, BalanceResponse?) -> Void))
 	func makeGetHistoryRequest(completionHandler: @escaping ((Bool, TransferResponse?) -> Void))
+	func makeRegisterRequest(registerRequest: RegisterRequest, completionHandler: @escaping ((Bool, String?) -> Void))
 }
 
 final class RESTService: RESTServiceable {
@@ -43,7 +44,7 @@ final class RESTService: RESTServiceable {
 				KeychainHelper.cache(value: loginResponse.username, for: .username)
 				completionHandler(true)
 			} catch {
-				
+				completionHandler(false)
 			}
 		})
 
@@ -115,6 +116,30 @@ final class RESTService: RESTServiceable {
 			} catch {
 				completionHandler(false, nil)
 				print("error")
+			}
+		})
+
+		task.resume()
+	}
+	
+	func makeRegisterRequest(registerRequest: RegisterRequest, completionHandler: @escaping ((Bool, String?) -> Void)) {
+		var request = getURLRequest(endPoint: "register", httpMethod: .post)
+		request.httpBody = try? JSONEncoder().encode(registerRequest)
+
+		let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+			guard let data = data else {
+				return
+			}
+			do {
+				let registerResponse = try JSONDecoder().decode(RegisterResponse.self, from: data)
+				
+				if registerResponse.status != "success" {
+					completionHandler(false, registerResponse.error)
+					return
+				}
+				completionHandler(true, nil)
+			} catch {
+				completionHandler(false, nil)
 			}
 		})
 

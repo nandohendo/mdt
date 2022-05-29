@@ -17,6 +17,7 @@ final class LoginView {
 	}
 	
 	let loginButton = UIButton()
+	let registerButton = UIButton()
 	let usernameTextField = UITextField()
 	let passwordTextField = UITextField()
 	
@@ -57,7 +58,7 @@ final class LoginView {
 		loginButton.setTitle("LOGIN", for: .normal)
 		loginButton.backgroundColor = .black
 		loginButton.layer.cornerRadius = 24
-		loginButton.frame = CGRect(x: 24, y: Device.screenHeight * 0.8, width: Device.screenWidth - 48, height: 48)
+		loginButton.frame = CGRect(x: 24, y: Device.screenHeight * 0.7, width: Device.screenWidth - 48, height: 48)
 		loginButton.alpha = 0.5
 		loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
 		return loginButton
@@ -66,6 +67,28 @@ final class LoginView {
 	@objc func loginTapped() {
 		loginViewModel.handleLoginTapped(username: (usernameTextField.text ?? ""), password: (passwordTextField.text ?? ""))
 	}
+	
+	func getRegisterButton() -> UIButton {
+		registerButton.setTitle("REGISTER", for: .normal)
+		registerButton.setTitleColor(.black, for: .normal)
+		registerButton.backgroundColor = .white
+		registerButton.layer.cornerRadius = 24
+		registerButton.frame = CGRect(x: 24, y: Device.screenHeight * 0.8, width: Device.screenWidth - 48, height: 48)
+		registerButton.layer.borderColor = UIColor.black.cgColor
+		registerButton.layer.borderWidth = 2
+		registerButton.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
+		return registerButton
+	}
+	
+	@objc func registerTapped() {
+		loginViewModel.handleRegisterTapped()
+	}
+	
+	func clearTextFields() {
+		usernameTextField.text = ""
+		passwordTextField.text = ""
+	}
+	
 }
 
 extension LoginView {

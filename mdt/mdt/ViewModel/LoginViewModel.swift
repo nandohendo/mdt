@@ -9,7 +9,10 @@ import Foundation
 
 final class LoginViewModel {
 	
+	var isFirstTimeLoad: Bool = true
+	
 	var onNeedToShowHome: (() -> Void)?
+	var onNeedToShowRegister: (() -> Void)?
 	var onNeedToShowErrorAlert: (() -> Void)?
 	var service: RESTServiceable = RESTService()
 	
@@ -22,5 +25,9 @@ final class LoginViewModel {
 				self?.onNeedToShowErrorAlert?()
 			}
 		}
+	}
+	
+	func handleRegisterTapped() {
+		onNeedToShowRegister?()
 	}
 }
