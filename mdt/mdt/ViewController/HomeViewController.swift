@@ -33,7 +33,18 @@ final class HomeViewController: UIViewController {
 	
 	private func configureViewModel() {
 		viewModel.onNeedToLogout = { [weak self] in
-			self?.dismiss(animated: true, completion: nil)
+			
+			guard let self = self else {
+				return
+			}
+			
+			if self == UIApplication.shared.keyWindow?.rootViewController {
+				let loginViewController = LoginViewController()
+				loginViewController.modalPresentationStyle = .fullScreen
+				self.present(loginViewController, animated: true, completion: nil)
+			} else {
+				self.dismiss(animated: true, completion: nil)
+			}
 		}
 	}
 	

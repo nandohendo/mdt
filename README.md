@@ -163,3 +163,8 @@ self.sortedDetail = sortedArray.map {
 Now we have `sortedDate` and `sortedDetail` which contains sorted transaction date and transaction detail respectively.
 
 The date will be used to fill up the collection view header, meanwhile the detail will be used to fill up the collection view cells.
+
+
+# Additional Flow
+
+If user has already login and reopen the app, they will start from home/dashboard page instead of login page

@@ -62,6 +62,7 @@ final class HomeViewModel {
 	}
 	
 	func handleLogoutTapped() {
+		KeychainHelper.removeAllValues()
 		onNeedToLogout?()
 	}
 	
