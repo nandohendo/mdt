@@ -40,6 +40,10 @@ final class MockRESTService: RESTServiceable {
 	}
 	
 	func makeRegisterRequest(registerRequest: RegisterRequest, completionHandler: @escaping ((Bool, String?) -> Void)) {
-		
+		if isSuccess {
+			completionHandler(true, nil)
+		} else {
+			completionHandler(false, "account already exists")
+		}
 	}
 }

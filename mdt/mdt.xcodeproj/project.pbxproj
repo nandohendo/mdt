@@ -43,6 +43,7 @@
 		669A9BBD2843373F0042C845 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BBC2843373F0042C845 /* RegisterRequest.swift */; };
 		669A9BBF2843376E0042C845 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BBE2843376E0042C845 /* RegisterResponse.swift */; };
 		669A9BC12843B34C0042C845 /* MockKeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BC02843B34C0042C845 /* MockKeychainHelper.swift */; };
+		669A9BC32843BF870042C845 /* RegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BC22843BF870042C845 /* RegisterViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		669A9BBC2843373F0042C845 /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		669A9BBE2843376E0042C845 /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		669A9BC02843B34C0042C845 /* MockKeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKeychainHelper.swift; sourceTree = "<group>"; };
+		669A9BC22843BF870042C845 /* RegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			children = (
 				669A9BB128427AFE0042C845 /* Mocks */,
 				669A9B552840CD5B0042C845 /* mdtTests.swift */,
+				669A9BC22843BF870042C845 /* RegisterViewModelTests.swift */,
 				669A9BAF28427A9B0042C845 /* LoginViewModelTests.swift */,
 				669A9BB428429FDC0042C845 /* HomeViewModelTests.swift */,
 			);
@@ -429,6 +432,7 @@
 				669A9BB328427B0A0042C845 /* MockRESTService.swift in Sources */,
 				669A9BB028427A9B0042C845 /* LoginViewModelTests.swift in Sources */,
 				669A9BC12843B34C0042C845 /* MockKeychainHelper.swift in Sources */,
+				669A9BC32843BF870042C845 /* RegisterViewModelTests.swift in Sources */,
 				669A9B562840CD5B0042C845 /* mdtTests.swift in Sources */,
 				669A9BB528429FDD0042C845 /* HomeViewModelTests.swift in Sources */,
 			);

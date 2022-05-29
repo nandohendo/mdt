@@ -17,14 +17,6 @@ extension UIView {
 	}
 }
 
-extension Date {
-   func getFormattedDate(format: String) -> String {
-		let dateformat = DateFormatter()
-		dateformat.dateFormat = format
-		return dateformat.string(from: self)
-	}
-}
-
 extension UITextField {
 	func setLeftPaddingPoints(_ amount:CGFloat){
 		let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
