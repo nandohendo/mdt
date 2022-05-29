@@ -10,6 +10,7 @@ import Foundation
 final class HomeViewModel {
 	
 	private let service: RESTServiceable
+	private let keychainHelper: KeychainHelperable.Type
 	var basicInfo: (Double, String)?
 	var sortedDate: [String]?
 	var sortedDetail: [[TransferDetail]]?
@@ -18,8 +19,9 @@ final class HomeViewModel {
 	var onNeedToReloadBasicInfo: (() -> Void)?
 	var onNeedToLogout: (() -> Void)?
 	
-	init(service: RESTServiceable = RESTService()) {
+	init(service: RESTServiceable = RESTService(), keychainHelper: KeychainHelperable.Type = KeychainHelper.self) {
 		self.service = service
+		self.keychainHelper = keychainHelper
 	}
 	
 	func getBalance() {
@@ -62,12 +64,12 @@ final class HomeViewModel {
 	}
 	
 	func handleLogoutTapped() {
-		KeychainHelper.removeAllValues()
+		keychainHelper.removeAllValues()
 		onNeedToLogout?()
 	}
 	
 	func getUsername() -> String {
-		return (KeychainHelper.value(for: .username) ?? "")
+		return (keychainHelper.value(for: .username) ?? "")
 	}
 	
 	func getLocalCurrencyPrefix() -> String {

@@ -8,7 +8,14 @@
 import Foundation
 import KeychainSwift
 
-final class KeychainHelper {
+protocol KeychainHelperable {
+	static func cache(value: String, for key: KeychainHelper.Key)
+	static func value(for key: KeychainHelper.Key) -> String?
+	static func removeValue(for key: KeychainHelper.Key)
+	static func removeAllValues()
+}
+
+final class KeychainHelper: KeychainHelperable {
 	
 	enum Key: CaseIterable {
 		case token

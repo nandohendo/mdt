@@ -42,6 +42,7 @@
 		669A9BBB2842BC670042C845 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BBA2842BC670042C845 /* RegisterViewController.swift */; };
 		669A9BBD2843373F0042C845 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BBC2843373F0042C845 /* RegisterRequest.swift */; };
 		669A9BBF2843376E0042C845 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BBE2843376E0042C845 /* RegisterResponse.swift */; };
+		669A9BC12843B34C0042C845 /* MockKeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669A9BC02843B34C0042C845 /* MockKeychainHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		669A9BBA2842BC670042C845 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		669A9BBC2843373F0042C845 /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		669A9BBE2843376E0042C845 /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
+		669A9BC02843B34C0042C845 /* MockKeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKeychainHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				669A9BB228427B0A0042C845 /* MockRESTService.swift */,
+				669A9BC02843B34C0042C845 /* MockKeychainHelper.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 			files = (
 				669A9BB328427B0A0042C845 /* MockRESTService.swift in Sources */,
 				669A9BB028427A9B0042C845 /* LoginViewModelTests.swift in Sources */,
+				669A9BC12843B34C0042C845 /* MockKeychainHelper.swift in Sources */,
 				669A9B562840CD5B0042C845 /* mdtTests.swift in Sources */,
 				669A9BB528429FDD0042C845 /* HomeViewModelTests.swift in Sources */,
 			);

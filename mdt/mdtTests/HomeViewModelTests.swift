@@ -16,10 +16,12 @@ final class HomeViewModelTests: QuickSpec {
 	override func spec() {
 		var viewModel: HomeViewModel!
 		var mockRESTService: MockRESTService!
+		var mockKeychainHelper: MockKeychainHelper.Type!
 		
 		beforeEach {
 			mockRESTService = MockRESTService()
-			viewModel = HomeViewModel(service: mockRESTService)
+			mockKeychainHelper = MockKeychainHelper.self
+			viewModel = HomeViewModel(service: mockRESTService, keychainHelper: mockKeychainHelper)
 		}
 		
 		afterEach {
@@ -87,6 +89,37 @@ final class HomeViewModelTests: QuickSpec {
 					expect(viewModel.sortedDate).to(beNil())
 					expect(isReloadCollectionView).to(beFalse())
 				}
+			}
+		}
+		
+		describe("handle logout tapped") {
+			it("should remove all keychain values and should call onNeedToLogout") {
+				var isLogoutCalled = false
+				
+				viewModel.onNeedToLogout = {
+					isLogoutCalled = true
+				}
+				
+				viewModel.handleLogoutTapped()
+
+				expect(mockKeychainHelper.isRemoveAllValuesCalled).to(beTrue())
+				expect(isLogoutCalled).to(beTrue())
+			}
+		}
+		
+		describe("getUsername") {
+			it("should return username from keychain") {
+				let username = viewModel.getUsername()
+				
+				expect(username).to(equal("mockedValue"))
+			}
+		}
+		
+		describe("getLocalCurrencyPrefix") {
+			it("should return expected value") {
+				let currencyPrefix = viewModel.getLocalCurrencyPrefix()
+				
+				expect(currencyPrefix).to(equal(Locale.current.currencyCode))
 			}
 		}
 	}
